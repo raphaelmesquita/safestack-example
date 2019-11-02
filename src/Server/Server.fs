@@ -13,6 +13,8 @@ let tryGetEnv = System.Environment.GetEnvironmentVariable >> function null | "" 
 
 let publicPath = Path.GetFullPath "../Client/public"
 
+let oi = {| Fo = 90 |}
+
 let port =
     "SERVER_PORT"
     |> tryGetEnv |> Option.map uint16 |> Option.defaultValue 8085us
@@ -20,7 +22,7 @@ let port =
 let webApp = router {
     get "/api/init" (fun next ctx ->
         task {
-            let counter = {Value = 42}
+            let counter = {Value = oi.Fo}
             return! json counter next ctx
         })
 }
